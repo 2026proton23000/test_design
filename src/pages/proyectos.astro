@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CardTerreno from '../components/CardTerreno.astro';
+
+const allTerrenos = await getCollection('terrenos');
+---
+
+<BaseLayout title="Proyectos | Catálogo de Lotes">
+  <main class="max-w-6xl mx-auto py-20 px-6">
+    <div class="mb-16">
+      <h1 class="text-5xl font-black text-slate-900 mb-4">Catálogo de Proyectos</h1>
+      <p class="text-xl text-slate-500">Explora las mejores oportunidades de inversión en Tacna.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {allTerrenos.map((terreno) => (
+        <CardTerreno 
+          id={terreno.id}
+          title={terreno.data.title}
+          price={terreno.data.precio}
+          area={terreno.data.area}
+          location={terreno.data.ubicacion}
+          status={terreno.data.status}
+          image={terreno.data.image}
+        />
+      ))}
+    </div>
+  </main>
+</BaseLayout>
